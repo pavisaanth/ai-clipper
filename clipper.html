@@ -32,6 +32,12 @@
         <h2>Drop your long video here</h2>
         <p>MP4, WebM or MOV · best under 2GB</p>
         <label class="upload-button">Choose a video<input id="videoInput" type="file" accept="video/*" /></label>
+        <div class="upload-divider"><span>or</span></div>
+        <form class="url-form" id="urlForm">
+          <input id="videoUrl" type="url" placeholder="Paste a direct video URL..." aria-label="Video URL" />
+          <button type="submit">Load URL <span>↗</span></button>
+        </form>
+        <p class="url-help">Direct MP4, WebM or MOV links work in-browser. Platform page links need a connector.</p>
         <span class="upload-hint">Your file stays on this device</span>
       </div>
 

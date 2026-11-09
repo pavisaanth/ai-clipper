@@ -16,6 +16,8 @@ const scanButton = document.querySelector('#scanButton');
 const suggestions = document.querySelector('#suggestions');
 const exportButton = document.querySelector('#exportButton');
 const exportStatus = document.querySelector('#exportStatus');
+const urlForm = document.querySelector('#urlForm');
+const videoUrl = document.querySelector('#videoUrl');
 let currentUrl = '';
 let duration = 0;
 
@@ -63,7 +65,37 @@ function loadVideo(file) {
   }, { once: true });
 }
 
+function loadVideoUrl(url) {
+  const cleanUrl = url.trim();
+  if (!cleanUrl) return;
+  if (!/^https?:\/\//i.test(cleanUrl)) {
+    window.alert('Please enter a complete video URL starting with http:// or https://');
+    return;
+  }
+  if (/youtube\.com|youtu\.be|tiktok\.com|instagram\.com|facebook\.com/i.test(cleanUrl)) {
+    window.alert('This is a platform page URL. A secure backend connector is needed to import it. Try a direct .mp4, .webm or .mov URL for this browser-only version.');
+    return;
+  }
+  if (currentUrl) URL.revokeObjectURL(currentUrl);
+  currentUrl = '';
+  video.src = cleanUrl;
+  fileName.textContent = 'Remote video';
+  videoInfo.textContent = 'Loading URL metadata...';
+  uploadState.classList.add('hidden');
+  editorState.classList.remove('hidden');
+  video.addEventListener('error', () => {
+    uploadState.classList.remove('hidden');
+    editorState.classList.add('hidden');
+    window.alert('This link could not be loaded. Check that it points directly to a video file and allows browser playback.');
+  }, { once: true });
+  video.load();
+}
+
 videoInput.addEventListener('change', (event) => loadVideo(event.target.files[0]));
+urlForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  loadVideoUrl(videoUrl.value);
+});
 replaceVideo.addEventListener('click', () => videoInput.click());
 document.querySelector('#playOverlay').addEventListener('click', () => video.play());
 startRange.addEventListener('input', updateSelection);
