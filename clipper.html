@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Forge Clips — turn long videos into short-form content." />
+  <title>Forge Clips — Turn long videos into momentum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="clipper.css" />
+</head>
+<body>
+  <header class="clip-header">
+    <a class="clip-logo" href="index.html"><span>F</span> FORGE <b>CLIPS</b></a>
+    <div class="header-status"><i></i> Local studio / No upload required</div>
+    <a class="back-link" href="index.html">Back to Forge ↗</a>
+  </header>
+
+  <main class="clip-app">
+    <section class="clip-intro">
+      <p class="eyebrow"><span></span> Content repurposing studio</p>
+      <h1>Find the<br /><em>moment.</em></h1>
+      <p class="intro-copy">Turn one long video into scroll-stopping clips. Everything runs in your browser for this first cut.</p>
+    </section>
+
+    <section class="workspace" aria-label="Video clipping workspace">
+      <div class="workspace-topbar"><div><span class="step active">01</span> Upload <span class="divider">/</span> <span class="step">02</span> Find highlights <span class="divider">/</span> <span class="step">03</span> Export</div><span class="privacy-pill">● Private by default</span></div>
+
+      <div class="upload-state" id="uploadState">
+        <div class="upload-icon">↑</div>
+        <h2>Drop your long video here</h2>
+        <p>MP4, WebM or MOV · best under 2GB</p>
+        <label class="upload-button">Choose a video<input id="videoInput" type="file" accept="video/*" /></label>
+        <span class="upload-hint">Your file stays on this device</span>
+      </div>
+
+      <div class="editor-state hidden" id="editorState">
+        <div class="editor-grid">
+          <div class="player-column">
+            <div class="video-shell"><video id="video" controls playsinline></video><div class="video-empty" id="videoEmpty">Your video preview will appear here</div><button class="play-overlay" id="playOverlay" aria-label="Play video">▶</button></div>
+            <div class="video-meta"><div><strong id="fileName">Untitled video</strong><span id="videoInfo">Ready to edit</span></div><button class="text-button" id="replaceVideo">Replace video</button></div>
+            <div class="timeline-wrap"><div class="timeline-head"><span>Selected clip</span><strong id="timeReadout">00:00 — 00:30</strong></div><div class="timeline" id="timeline"><div class="timeline-track"></div><div class="range-highlight" id="rangeHighlight"></div><input class="range-input range-start" id="startRange" type="range" min="0" max="100" value="0" step="0.1" aria-label="Clip start" /><input class="range-input range-end" id="endRange" type="range" min="0" max="100" value="30" step="0.1" aria-label="Clip end" /></div><div class="timeline-labels"><span>00:00</span><span id="durationLabel">00:00</span></div></div>
+          </div>
+          <aside class="control-column">
+            <div class="control-card highlight-card"><div class="card-title"><span class="spark">✦</span><div><strong>Highlight finder</strong><small>Quick suggestions based on video length</small></div></div><button class="scan-button" id="scanButton">Scan for moments <span>✦</span></button><div class="suggestions" id="suggestions"><p class="empty-suggestion">Upload a video and scan to find suggested moments.</p></div></div>
+            <div class="control-card"><div class="card-title"><span class="caption-icon">Aa</span><div><strong>Caption context</strong><small>Paste a transcript to guide your edits</small></div></div><textarea id="transcript" placeholder="Paste a transcript here (optional)..."></textarea><div class="caption-row"><span>Captions will be ready for your next pass</span><span class="toggle"><i></i></span></div></div>
+          </aside>
+        </div>
+        <div class="export-bar"><div class="export-summary"><span class="summary-icon">↳</span><div><strong id="exportSummary">30 second clip selected</strong><small>Vertical 9:16 · WebM export</small></div></div><button class="export-button" id="exportButton">Export clip <span>↓</span></button></div>
+        <div class="export-status hidden" id="exportStatus" role="status"></div>
+      </div>
+    </section>
+    <p class="studio-note"><span>✳</span> This browser-first prototype trims and exports locally. AI transcription and face tracking can be connected next through a secure backend.</p>
+  </main>
+  <script src="clipper.js"></script>
+</body>
+</html>
